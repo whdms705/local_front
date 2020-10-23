@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,15 +22,12 @@ public class SkeletonResponse {
 
 
     @Cacheable(value = "getSkeletonList" , keyGenerator = "skeletonKeyGenerator")
-    public List<Demo> getList(){
+    public Map<String, Object> getList(){
         System.out.println(123);
-        Map<String , Object> demoInfo = skeletonClient.getDemo();
-
-        List<Demo> lists = new ArrayList<>();
-        Demo demo = new Demo();
-        demo.setName((String)demoInfo.get("name"));
-        demo.setNumber((long)demoInfo.get("number"));
-        lists.add(demo);
+        Map<String, Object> params = new HashMap<>();
+        params.put("serviceKey","4f6f76ee9c6c53ca2a7f2e5fd367a2697");
+        String callUrl = skeletonClient.urlMake(params);
+        Map<String, Object> lists = skeletonClient.apiCall(callUrl);
 
         return lists;
     }

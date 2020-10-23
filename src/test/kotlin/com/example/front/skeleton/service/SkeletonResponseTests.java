@@ -6,6 +6,7 @@ import com.example.front.skeleton.model.Demo;
 import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
@@ -21,7 +22,7 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 public class SkeletonResponseTests extends TestCase {
 
-    @MockBean
+    /*@MockBean
     private SkeletonClient skeletonClient;
 
     @SpyBean
@@ -35,7 +36,7 @@ public class SkeletonResponseTests extends TestCase {
         result.put("number",0L);
 
         //when
-        when(skeletonClient.getDemo()).thenReturn(result);
+        when(skeletonClient.apiCall()).thenReturn(result);
         skeletonResponse.getList();
         skeletonResponse.getList();
         skeletonResponse.getList();
@@ -53,7 +54,7 @@ public class SkeletonResponseTests extends TestCase {
         result.put("name","eunho");
         result.put("number",0L);
 
-        when(skeletonClient.getDemo()).thenReturn(result);
+        when(skeletonClient.apiCall()).thenReturn(result);
 
         //given
         List<Demo> list = skeletonResponse.getList();
@@ -62,6 +63,11 @@ public class SkeletonResponseTests extends TestCase {
         assertNotNull(list);
     }
 
+    @Test
+    public void getList_호출_테스트(){
+        Map<String, Object> list = skeletonResponse.getList();
+        System.out.println(list);
+    }*/
 
 
 }
