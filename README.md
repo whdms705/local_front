@@ -6,6 +6,7 @@
 
 - spring boot 2.3.4.RELEASE
 - redis
+- maven
 
 
 ---
