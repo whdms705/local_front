@@ -17,8 +17,8 @@ public class DemoContoller {
     @Autowired
     private SkeletonResponse skeletonResponse;
 
-    @GetMapping("/demo")
+    /*@GetMapping("/demo")
     public List<Demo> getDemo(){
         return skeletonResponse.getList();
-    }
+    }*/
 }

@@ -26,11 +26,9 @@ public class SkeletonContoller {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("dashBoard");
 
-        Demo demo = skeletonResponse.getList().get(0);
+        Map demo = skeletonResponse.getList();
 
         Map<String, Object> map = new HashMap<>();
-        map.put("name", demo.getName());
-        map.put("number", demo.getNumber());
 
         modelAndView.addObject("data", map);
 
