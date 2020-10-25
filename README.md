@@ -94,3 +94,46 @@ Memcached 단점
 
 ## 출저
 ttps://americanopeople.tistory.com/148 [복세편살]
+
+
+### ec2 - mysql vs rds - mysql
+
+* 데이터베이스 서버를 ec2에서 설치하여 관리를 직접 하느냐, AWS에게 관리를 양도하느냐의 차이다.
+
+* 데이터베이스를 전문적으로 관리하는 인력이 없거나 리소스가 부족한 상황이라면 RDS를 사용하여 관리하는게<br>
+비용적으로 좀 더 들수 있지만 종합적으로 효율적이다.
+
+* ec2인스턴스를 생성하고 mysql설치하고 외부 접속 설정을 하고 DB이중화를 하고 한시간이 넘을 작업량이지만(작업자의 역량에 따라 시간은 다를 수 있음)<br>
+RDS를 사용하여 DB 이중화까지 한시간이 걸리지 않았음(RDS를 처음사용해봐 설정법을 찾는게 좀 불편하긴 했음)
+
+>> 결론은 작업자의 역량과 리소스상황에 맞게 선택하여 사용하면 됩니다. 이 프로젝트에는 빠른 구축을 위해 RDS를 사
+ 
+
+
+### DB 이중화
+
+* master db에서는 insert , update ,delete 작업 , slave db에서는 read용으로 사용
+
+* mysql replication을 통해 데이터 복제
+
+![A](imgs/mysql1.png)
+
+#### replication 장점
+
+* DB 서버 부하 분산
+
+* master db 장애시 slave db로 대체 가능
+
+#### replication 단점
+
+* Master-Slave pair 관리:서버들이 많아질 경우, Master와 Slave의 짝을 관리하는 것이 쉽지 않다.
+
+* 실패 상황에서의 복구 : Master가 실패시 Master와 Slave의 교체, 혹은 Slave의 데이터를 Master로 복사하는 등의 작업을 수동으로 진행하여야 한다. Slave의 실패인 경우도 마찬가지이다.
+
+* binary log의 관리: Master 에 쌓이는 binary log에 대한 관리 또한 수동으로 처리하여야 한다.(cron등을 이용하여 정기적인 삭제 필요)
+
+* replication 지연발생: Master의 처리량이 많은 경우 Slave는 지연시간이 발생하게 되고 그 시간동안의 데이터는 일치하지 않는 문제가 있다.
+
+
+## 출저
+https://hibrainapps.tistory.com/129 [하이브레인넷 부설연구소]
