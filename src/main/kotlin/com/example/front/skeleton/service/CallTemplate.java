@@ -1,6 +1,8 @@
 package com.example.front.skeleton.service;
 
 
+import com.example.front.skeleton.common.exception.ApiResponseException;
+
 public interface CallTemplate {
-    Object apiCall(String url);
+    Object apiGetCall(String url);
 }

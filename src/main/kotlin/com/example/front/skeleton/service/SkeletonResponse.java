@@ -1,6 +1,7 @@
 package com.example.front.skeleton.service;
 
 import com.example.front.skeleton.client.SkeletonClient;
+import com.example.front.skeleton.common.exception.ApiResponseException;
 import com.example.front.skeleton.model.Demo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,16 +19,17 @@ public class SkeletonResponse {
     private final static Logger LOGGER = LoggerFactory.getLogger(SkeletonResponse.class);
 
     @Autowired
-    private SkeletonClient skeletonClient;
+    private ClientFactory clientFactory;
 
 
     @Cacheable(value = "getSkeletonList" , keyGenerator = "skeletonKeyGenerator")
     public Map<String, Object> getList(){
-        System.out.println(123);
+        AbstractCallTemplate client = clientFactory.getClient(ApiType.SKELETON_TYPE.getApiTypeCode());
         Map<String, Object> params = new HashMap<>();
-        params.put("serviceKey","4f6f76ee9c6c53ca2a7f2e5fd367a2697");
-        String callUrl = skeletonClient.urlMake(params);
-        Map<String, Object> lists = skeletonClient.apiCall(callUrl);
+        params.put("serviceKey","");
+
+        String callUrl = client.urlMake(params);
+        Map<String, Object> lists = client.apiGetCall(callUrl);
 
         return lists;
     }
