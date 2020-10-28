@@ -5,12 +5,20 @@ import org.springframework.http.HttpStatus;
 public class ApiException extends AbstractException{
     String exceptionCode;
 
-    String exceptionInfo;
+    Object exceptionInfo;
 
     boolean logable = false;
 
     public ApiException(Throwable cause , HttpStatus httpStatus){
         super(cause);
+        setHttpStatus(httpStatus);
+    }
+
+    public ApiException(Throwable cause , HttpStatus httpStatus, String exceptionCode, Object exceptionInfo){
+        super(cause);
+        setHttpStatus(httpStatus);
+        setExceptionCode(exceptionCode);
+        setExceptionInfo(exceptionInfo);
     }
 
     private HttpStatus httpStatus;
@@ -31,11 +39,11 @@ public class ApiException extends AbstractException{
         this.exceptionCode = exceptionCode;
     }
 
-    public String getExceptionInfo() {
+    public Object getExceptionInfo() {
         return exceptionInfo;
     }
 
-    public void setExceptionInfo(String exceptionInfo) {
+    public void setExceptionInfo(Object exceptionInfo) {
         this.exceptionInfo = exceptionInfo;
     }
 
