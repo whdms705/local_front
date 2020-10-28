@@ -22,7 +22,6 @@ public class PropertyEncyptConfigurationTest extends TestCase {
         String plainText = "test";
         String encryptedText = encryptor.encrypt(plainText);
         String decryptedText = encryptor.decrypt(encryptedText);
-        System.out.println(encryptedText);
         assertTrue(plainText.equals(decryptedText));
     }
 }

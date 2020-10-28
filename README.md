@@ -142,3 +142,105 @@ https://hibrainapps.tistory.com/129 [하이브레인넷 부설연구소]
 
 ### application.properties 값 암호화
 
+application.properties 에 입력한 DB정보와 같은 민감한 정보가 소스에 노출되는 것에 보안상에 고민이었는데<br>
+`jasypt-spring-boot-starter`를 통해 처리를 하였습니다.
+
+
+`pom.xml`
+
+```xml
+
+<!-- application.porperties 암호화 -->
+<dependency>
+    <groupId>com.github.ulisesbocchio</groupId>
+    <artifactId>jasypt-spring-boot-starter</artifactId>
+    <version>3.0.3</version>
+</dependency>
+<dependency>
+    <groupId>org.bouncycastle</groupId>
+    <artifactId>bcprov-jdk15on</artifactId>
+    <version>1.66</version>
+</dependency>
+
+```
+
+`config class`
+
+
+```java
+
+@Configuration
+public class PropertyEncyptConfiguration {
+
+    @Bean("encryptorBean")
+    public PooledPBEStringEncryptor stringEncryptor() {
+        String mypassword = System.getProperty("jasypt.encryptor.password");
+        PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
+        encryptor.setProvider(new BouncyCastleProvider());
+        encryptor.setPoolSize(2);
+        encryptor.setPassword(mypassword);
+        encryptor.setAlgorithm("PBEWithSHA256And128BitAES-CBC-BC");
+        return encryptor;
+    }
+}
+
+```
+
+setPassword에 해당하는 값을 그대로 코드에 담기에는 이부분도 보안상 문제가 되기때문에<br>
+System property값을 입력하여 가져오도록 처리함.<br>
+
+application을 jar파일로 실행할 때 -Djasypt.encryptor.password=mypassword입력 vm option을 줘서 실행해준다.<br>
+
+그러면 코드에 passsword 그대로 노출되는게 아니라 코드에서 받아서 password값을 받아서 세팅할 수 있다.<br>
+
+
+![A](imgs/enc.png)
+
+```java
+
+String mypassword = System.getProperty("jasypt.encryptor.password");
+
+```
+
+아래와 같이 jasypt.encryptor.bean도 설정해줘야한다.
+PropertyEncyptConfiguration class에 등록한 빈이름을 넣어준다.
+
+
+`application.properties`
+
+```properties
+
+jasypt.encryptor.bean=encryptorBean
+jasypt.encryptor.property.prefix=ENC(
+jasypt.encryptor.property.suffix=)
+
+```
+
+
+테스트 코드를 통해 간단히 확인도 가능하다.
+
+```java
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class PropertyEncyptConfigurationTest extends TestCase {
+    @Test
+    public void EncyptConfiguration_확인(){
+        PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
+        encryptor.setProvider(new BouncyCastleProvider());
+        encryptor.setPoolSize(2);
+        encryptor.setPassword("xoxo");
+        encryptor.setAlgorithm("PBEWithSHA256And128BitAES-CBC-BC");
+
+        String plainText = "test";
+        String encryptedText = encryptor.encrypt(plainText);
+        String decryptedText = encryptor.decrypt(encryptedText);
+        System.out.println(encryptedText);
+        assertTrue(plainText.equals(decryptedText));
+    }
+}
+
+
+```
+
+
