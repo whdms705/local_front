@@ -7,6 +7,7 @@
 - spring boot 2.3.4.RELEASE
 - redis
 - maven
+- jasypt
 
 
 ---
@@ -138,7 +139,7 @@ RDS를 사용하여 DB 이중화까지 한시간이 걸리지 않았음(RDS를 �
 ## 출저
 https://hibrainapps.tistory.com/129 [하이브레인넷 부설연구소]
 
-
+---
 
 ### application.properties 값 암호화
 
@@ -244,3 +245,5 @@ public class PropertyEncyptConfigurationTest extends TestCase {
 ```
 
 
+## 출저
+https://goateedev.tistory.com/131
