@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
+// 시도별 발생동향
+
 @Component
 public class SkeletonClient  extends AbstractCallTemplate {
     private final static Logger LOGGER = LoggerFactory.getLogger(SkeletonClient.class);

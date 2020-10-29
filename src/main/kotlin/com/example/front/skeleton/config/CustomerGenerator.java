@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 
 @Component
-public class SkeletonKeyGenerator implements KeyGenerator {
+public class CustomerGenerator implements KeyGenerator {
     @Override
     public Object generate(Object target, Method method, Object... params) {
         List<String> collect = Streams.ofNullable(params)

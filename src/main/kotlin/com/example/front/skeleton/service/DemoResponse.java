@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class SkeletonResponse {
-    private final static Logger LOGGER = LoggerFactory.getLogger(SkeletonResponse.class);
+public class DemoResponse {
+    private final static Logger LOGGER = LoggerFactory.getLogger(DemoResponse.class);
 
     @Autowired
     private ClientFactory clientFactory;
@@ -20,10 +20,9 @@ public class SkeletonResponse {
     @Value("${api.serviceKey}")
     private String servicekey;
 
-
-    @Cacheable(value = "getSkeletonList" , keyGenerator = "customerGenerator")
+    @Cacheable(value = "getDemoList" , keyGenerator = "customerGenerator")
     public Map<String, Object> getList(){
-        AbstractCallTemplate client = clientFactory.getClient(ApiType.SKELETON_TYPE.getApiTypeCode());
+        AbstractCallTemplate client = clientFactory.getClient(ApiType.DEMO_TYPE.getApiTypeCode());
         Map<String, Object> params = new HashMap<>();
         params.put("serviceKey",servicekey);
 

@@ -16,12 +16,15 @@ public class PropertyEncyptConfigurationTest extends TestCase {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         encryptor.setProvider(new BouncyCastleProvider());
         encryptor.setPoolSize(2);
-        encryptor.setPassword("xoxo");
+        encryptor.setPassword("");
         encryptor.setAlgorithm("PBEWithSHA256And128BitAES-CBC-BC");
 
         String plainText = "test";
         String encryptedText = encryptor.encrypt(plainText);
         String decryptedText = encryptor.decrypt(encryptedText);
+        System.out.println();
+        System.out.printf(encryptedText);
+        System.out.println();
         assertTrue(plainText.equals(decryptedText));
     }
 }

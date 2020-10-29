@@ -1,8 +1,6 @@
 package com.example.front.skeleton.controller;
 
 
-import com.example.front.skeleton.common.exception.ApiResponseException;
-import com.example.front.skeleton.model.Demo;
 import com.example.front.skeleton.service.SkeletonResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

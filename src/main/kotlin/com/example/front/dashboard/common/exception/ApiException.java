@@ -14,10 +14,27 @@ public class ApiException extends AbstractException{
         setHttpStatus(httpStatus);
     }
 
-    public ApiException(Throwable cause , HttpStatus httpStatus, String exceptionCode, Object exceptionInfo){
-        super(cause);
+    public ApiException(String message , HttpStatus httpStatus, String exceptionCode, Object exceptionInfo){
+        super(message);
         setHttpStatus(httpStatus);
         setExceptionCode(exceptionCode);
+        setExceptionInfo(exceptionInfo);
+    }
+
+    public ApiException(String message, String exceptionCode, Object exceptionInfo){
+        this(message, HttpStatus.SERVICE_UNAVAILABLE,exceptionCode,exceptionInfo);
+    }
+
+    public ApiException(String message, HttpStatus httpStatus){
+        this(message, httpStatus,null,null);
+    }
+
+    public ApiException(String message, Object exceptionInfo){
+        this(message, HttpStatus.SERVICE_UNAVAILABLE,null,exceptionInfo);
+    }
+
+    public ApiException(Object exceptionInfo){
+        setHttpStatus(HttpStatus.SERVICE_UNAVAILABLE);
         setExceptionInfo(exceptionInfo);
     }
 
