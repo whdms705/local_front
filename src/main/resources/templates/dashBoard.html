@@ -6,7 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<div th:text="${data.name}"></div>
-<th:block th:text="${data.number}"/>
+
+<form action="">
+    지역:<br>
+    <select class="select" name="stationName" id="stationName">
+        <option th:each="item, index : ${data.station}" th:value="${item}" th:text="${item}"></option>
+    </select><br>
+
+    조회일자:<br>
+    <input type="text" name="startDate" value=""  />
+    <input type="text" name="endDate" value=""  /><br>
+
+    <button type="submit">search</button>
+
+</form>
+
+
 </body>
 </html>

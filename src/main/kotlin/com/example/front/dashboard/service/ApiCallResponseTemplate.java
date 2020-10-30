@@ -5,5 +5,4 @@ import java.util.Map;
 
 public interface ApiCallResponseTemplate<T> {
     List<T> getList(String url);
-    String urlMake(Map<String , Object> params);
 }
