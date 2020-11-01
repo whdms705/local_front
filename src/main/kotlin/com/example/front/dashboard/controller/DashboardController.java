@@ -6,7 +6,7 @@ import com.example.front.dashboard.service.DashboardService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
+import javax.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,16 +24,18 @@ public class DashboardController {
     private DashboardService service;
 
     @GetMapping("")
-    public ModelAndView index(@ModelAttribute @Valid DashboardSearchDto dashboardSearchDto, BindingResult bindingResult){
-        service.ValidDashboardSearch(dashboardSearchDto,bindingResult);
-
+    public ModelAndView index(@Valid @ModelAttribute DashboardSearchDto dashboardSearchDto, BindingResult bindingResult){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("dashBoard");
-
         Map<String, Object> map = new HashMap<>();
         map.put("station",service.getStationNames());
-        modelAndView.addObject("data", map);
 
+        if("Y".equals(dashboardSearchDto.getIsSearch())){
+            service.ValidDashboardSearch(dashboardSearchDto);
+
+        }
+
+        modelAndView.addObject("data", map);
         return modelAndView;
     }
 

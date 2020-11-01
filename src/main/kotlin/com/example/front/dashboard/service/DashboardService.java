@@ -33,11 +33,20 @@ public class DashboardService {
 
     }*/
 
-    public void ValidDashboardSearch(DashboardSearchDto dto , BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            FieldError error = bindingResult.getFieldError();
+    public void ValidDashboardSearch(DashboardSearchDto dto){
+        if(dto.getStartDate() == null || dto.getStartDate() == ""){
             throw new ApiException(
-                    String.format(ErrorMessage.INVALID_PARAMETER.getErrorMessage(),error.getField())
+                    String.format(ErrorMessage.INVALID_PARAMETER.getErrorMessage(),"startDate",dto.getStartDate())
+                    , HttpStatus.BAD_REQUEST);
+        }
+        if(dto.getEndDate() == null || dto.getEndDate() == ""){
+            throw new ApiException(
+                    String.format(ErrorMessage.INVALID_PARAMETER.getErrorMessage(),"endDate",dto.getEndDate())
+                    , HttpStatus.BAD_REQUEST);
+        }
+        if(dto.getStationName() == null || dto.getStationName() == ""){
+            throw new ApiException(
+                    String.format(ErrorMessage.INVALID_PARAMETER.getErrorMessage(),"stationName",dto.getStationName())
                     , HttpStatus.BAD_REQUEST);
         }
 
