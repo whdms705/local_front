@@ -24,7 +24,9 @@ public class DashboardController {
     private DashboardService service;
 
     @GetMapping("")
-    public ModelAndView index(@ModelAttribute @Validated DashboardSearchDto dashboardSearchDto, BindingResult bindingResult){
+    public ModelAndView index(@ModelAttribute @Valid DashboardSearchDto dashboardSearchDto, BindingResult bindingResult){
+        service.ValidDashboardSearch(dashboardSearchDto,bindingResult);
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("dashBoard");
 
