@@ -30,7 +30,7 @@ public class DashboardService {
     }
 
     /*public List<AirData> GetAirData(DashboardSearchDto dto){
-
+        airDataResponse.getList()
     }*/
 
     public void ValidDashboardSearch(DashboardSearchDto dto){

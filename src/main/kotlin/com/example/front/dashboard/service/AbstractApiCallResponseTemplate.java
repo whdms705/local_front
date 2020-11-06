@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractApiCallResponseTemplate implements ApiCallResponseTemplate{
+public abstract class AbstractApiCallResponseTemplate<T> implements ApiCallResponseTemplate{
 
     @Override
     public List getList(String url) {
@@ -21,5 +21,5 @@ public abstract class AbstractApiCallResponseTemplate implements ApiCallResponse
         return null;
     }
 
-    public abstract String urlMake(Map params);
+    public abstract String urlMake(T params);
 }
