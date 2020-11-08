@@ -7,8 +7,6 @@ import com.example.front.dashboard.model.DashboardSearchDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,9 +27,9 @@ public class DashboardService {
         return lists;
     }
 
-    /*public List<AirData> GetAirData(DashboardSearchDto dto){
-        airDataResponse.getList()
-    }*/
+    public List<AirData> GetAirData(DashboardSearchDto params){
+        return airDataResponse.getList(params);
+    }
 
     public void ValidDashboardSearch(DashboardSearchDto dto){
         if(dto.getStartDate() == null || dto.getStartDate() == ""){
