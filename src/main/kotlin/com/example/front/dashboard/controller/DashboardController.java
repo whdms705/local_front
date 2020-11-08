@@ -24,15 +24,15 @@ public class DashboardController {
     private DashboardService service;
 
     @GetMapping("")
-    public ModelAndView index(@Valid @ModelAttribute DashboardSearchDto dashboardSearchDto, BindingResult bindingResult){
+    public ModelAndView index(@Valid @ModelAttribute DashboardSearchDto params, BindingResult bindingResult){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("dashBoard");
         Map<String, Object> map = new HashMap<>();
         map.put("station",service.getStationNames());
 
-        if("Y".equals(dashboardSearchDto.getIsSearch())){
-            service.ValidDashboardSearch(dashboardSearchDto);
-
+        if("Y".equals(params.getIsSearch())){
+            service.ValidDashboardSearch(params);
+            map.put("air",service.GetAirData(params));
         }
 
         modelAndView.addObject("data", map);
